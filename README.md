@@ -14,7 +14,7 @@ This project will be successful if it accomplishes the following:
 - Homebrew (OSX)
 - Homebrew Cask (OSX)
 
-Running `./do setup` will automatically install all dependencies. NOTE: OSX installer only at this time, must manual install onLinux.
+Running `./do setup` will automatically install all dependencies. NOTE: OSX installer only at this time, must manual install on Linux.
 
 # Installation
 ```
@@ -30,6 +30,5 @@ cd packer-rhel-ansible
     1. `./do build-ovf` to create the base image
     2. `./do build-box` to apply base Ansible playbooks
 4. `./do install` to add the finished Vagrant .box to your local installation.
-5. Profit! Now you can re-use this local Vagrant .box in other projects with `vagrant init <box_prefix>/rhel-6.8` 
-- 
+5. Profit! Now you can re-use this local Vagrant .box in other projects with `vagrant init <box_prefix>/rhel-6.8`
 

@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+
+  vars:
+     rhsm_username: "{{ lookup('env', 'RHSM_USERNAME') }}"
+     rhsm_password: "{{ lookup('env', 'RHSM_PASSWORD') }}"
+     rhel_release: "{{ lookup('env', 'RHEL_RELEASE') }}"
+
+  pre_tasks:
+    - name: Register with Red Hat Subscription Management
+      redhat_subscription:
+        state: present
+        username: "{{ rhsm_username }}"
+        password: "{{ rhsm_password }}"
+        autosubscribe: true
+
+    - name: Load custom site_facts module
+      site_facts:
+        src: /etc/yum.repos.d/redhat.repo
+
+    - name: Enable Red Hat repositories via subscription-manager
+      command: "subscription-manager repos --enable {{ item }}"
+      when: site_facts[item]['enabled'] is defined and site_facts[item]['enabled'] != "1"
+      with_items:
+        - rhel-6-server-optional-rpms
+        - rhel-6-server-extras-rpms
+
+    - name: Enable EPEL Repo
+      yum:
+        state: present
+        name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ rhel_release }}.noarch.rpm"
+        update_cache: yes
+
+    - name: Ensure Ansible dependencies are installed.
+      yum:
+        state: present
+        name:
+        - libselinux-python
+        - ansible
+        - git

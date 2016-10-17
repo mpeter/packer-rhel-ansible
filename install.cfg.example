@@ -1,0 +1,20 @@
+
+# example
+iso_path=/Users/mpeter/prj/packer-rhel-ansible/packer/iso/rhel-server-6.8-x86_64-dvd.iso
+iso_checksum=d35fd1af20f6adef9b11b46c2534ae8b6e18de7754889e2b51808b436dff2804
+iso_checksum_type=sha256
+packer_json=rhel-6.8-x86_64.json
+box_basename=rhel-6.8
+ks_path=rhel-6.8/ks.cfg
+rhel_release=6
+arch=64
+version=0.0.1
+
+# update with your preferred box prefix
+box_prefix=<atlas/box prefix>
+
+# update with your rhn username
+rhsm_usernamer=<rhsm username / email>
+
+# update with your rhn password
+rhsm_password=<rhsm password>
